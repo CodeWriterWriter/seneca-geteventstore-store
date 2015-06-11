@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/colmharte/seneca-geteventstore-store",
   "dependencies": {
-    "geteventstore-client": ^0.1.x",
+    "geteventstore-client": "^0.1.x",
     "lodash": "^3.9.3"
   },
   "devDependencies": {
