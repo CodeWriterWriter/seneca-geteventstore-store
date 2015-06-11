@@ -1,0 +1,39 @@
+{
+  "name": "seneca-geteventstore-store",
+  "version": "0.1.0",
+  "description": "A seneca data store plugin for GetEventStore ",
+  "main": "geteventstore-store",
+  "scripts": {
+    "test": "./test.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/colmharte/seneca-geteventstore-store.git"
+  },
+  "keywords": [
+    "seneca",
+    "plugin",
+    "store",
+    "geteventstore"
+  ],
+  "author": "Colm Harte <colm.harte@nearform.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/colmharte/seneca-geteventstore-store/issues"
+  },
+  "files": [
+    "LICENSE.txt",
+    "README.md",
+    "geteventstore-store"
+  ],
+  "homepage": "https://github.com/colmharte/seneca-geteventstore-store",
+  "dependencies": {
+    "lodash": "^3.9.3"
+  },
+  "devDependencies": {
+    "async": "~0.9.0",
+    "seneca": "plugin",
+    "mocha": "~1.20.1",
+    "seneca-store-test": "~0.2.2"
+  }
+}
