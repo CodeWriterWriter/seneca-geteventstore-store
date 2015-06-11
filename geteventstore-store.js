@@ -39,6 +39,9 @@ module.exports = function(options) {
     cb(null);
   }
 
+  /*
+    To find the current version of an object its necessary to iterate through the stream from the earliest item to the latest to get the current state of each entity
+  */
   function iterateStreamToFirst(streamName, qq, itemStore, callback)
   {
     dbinst.readPrevious(streamName, function(err, data){
@@ -63,6 +66,9 @@ module.exports = function(options) {
     });
   }
 
+  /*
+    Items in a stream can't be deleted so instead a deleted object is added to the stream to mark an entity as deleted
+  */
   function iterateDelete(streamName, list, position, cb) {
     if (position < list.length) {
 
@@ -132,7 +138,7 @@ module.exports = function(options) {
     },
 
     load: function(args, cb) {
-
+      //load all entities in the stream in order to get the object requested
       store.list(args, function(err, list){
 
           if (list.length > 0) {
@@ -167,8 +173,6 @@ module.exports = function(options) {
 
           iterateStreamToFirst(streamName, qq, listItems, function(err){
             //stream data has been read and list now contains alist of all valid items
-
-
             if (err)
               cb(err);
             else
@@ -223,14 +227,14 @@ module.exports = function(options) {
       var streamName = makeStreamName(qent);
 
       if (all) {
-
+        //for each item in the list add a new deleted entry to the stream
         store.list(args, function(err, list){
           iterateDelete(streamName, list, 0, function(err){
             seneca.log.debug('remove/all',q,desc);
             cb(err);
           });
         });
-          //for each item in the list we need to add a nw deleted entry to the stream
+
 
       }
       else {
@@ -244,7 +248,7 @@ module.exports = function(options) {
 
                 data._deleted = true;
 
-                //you can't delete an item in a stream so we add a new entry with same id and mark it as deleted
+                //can't delete an item in a stream so add a new entry with same id and mark it as deleted
                 dbinst.write(streamName, JSON.stringify(data.data$(false)), "deleted", function(err, result){
                   if (!error(args, err, cb))
                   {
