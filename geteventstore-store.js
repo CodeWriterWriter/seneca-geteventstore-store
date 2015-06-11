@@ -113,21 +113,21 @@ module.exports = function(options) {
 
                         ent.id = id;
 
-                        completeSave(id);
+                        completeSave(id, true);
                       });
         }
         else {
-          completeSave(ent.id);
+          completeSave(ent.id, false);
         }
       }
       else
-        completeSave(ent.id);
+        completeSave(ent.id, false);
 
 
-      function completeSave(id) {
+      function completeSave(id, isNew) {
         var streamName = makeStreamName(ent);
 
-        dbinst.write(streamName, JSON.stringify(ent.data$(false)), "stored", function(err, res) {
+        dbinst.write(streamName, JSON.stringify(ent.data$(false)), isNew ? "created" : "updated", function(err, res) {
           if (!error(args,err,cb)) {
             seneca.log.debug('save/update',ent,desc);
 
