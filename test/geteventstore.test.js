@@ -1,5 +1,3 @@
-/* Copyright (c) 2010-2014 Richard Rodger, MIT License */
-
 "use strict";
 
 
@@ -14,19 +12,21 @@ var Lab = require('lab');
 var lab = exports.lab = Lab.script()
 
 var describe = lab.describe
-var it = lab.it
-
-si.__testcount = 0
-var testcount = 0
-
 
 describe('geteventstore', function(){
-  it('basic', function(done){
-    testcount++
-    shared.basictest(si,done)
-  })
+  shared.basictest({
+    seneca: si,
+    script: lab
+  });
 
-  it('close', function(done){
-    shared.closetest(si,testcount,done)
-  })
+  shared.sorttest({
+   seneca: si,
+    script: lab
+  });
+
+  shared.limitstest({
+    seneca: si,
+    script: lab
+  });
+
 })
